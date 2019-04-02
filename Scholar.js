@@ -84,7 +84,7 @@ ClassList["scholar"] = {
 					function (fields, v) {
 						if (fields.Proficiency == true) {
 						  fields.Mod = v.Int;
-						};
+						}
 					}
 				]
 			}
