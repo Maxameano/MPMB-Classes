@@ -173,7 +173,7 @@ AddSubClass("scholar", "culinarian", {
 	subname : "Culinary Field of Study",
 	source : ["HB", 0],
 	fullname : "Culinarian Scholar",
-	toolProfs : {["Artisans Tools", 2]},
+	toolProfs : {[["Brewer's supplies", "Wis"],["Cook's utensils","Wis"]]},
 	features : {
 		"subclassfeature1" : {
 			name : "Combat Cook",
