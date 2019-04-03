@@ -11,12 +11,12 @@
 				Note that you will need the syntax for adding a subclass as well if you want the class to have any choices for subclasses
 	Code by:  /u/Maxameano
 	Date:     2019-03-30
-	Code Version: 1.0
+	Code Version: 0.6
 	Please support the creator of this content (Benjamin Huffman) and download their content at https://www.dmsguild.com/browse.php?author=Benjamin%20Huffman
 */
 
 var iFileName = "Scholar.js";
-RequiredSheetVersion(13);
+RequiredSheetVersion(12.999);
 
 //Now make the scholar class
 ClassList["scholar"] = {
@@ -65,7 +65,7 @@ ClassList["scholar"] = {
 			source : ["HB", 0],
 			minlevel : 1,
 			description : "\n   " + "When a creature within 60ft of you who can hear you makes an ability check, attack roll, or saving throw you can use your reaction to add a bonus equal to your proficiency bonus to that roll.",
-            usages : "Intelligence modifier per ",
+      usages : "Intelligence modifier per ",
 			usagescalc : "event.value = Math.max(1, What('Int Mod'));",
 			recovery : levels.map(function (n) {
 					return n < 5 ? "long rest" : "short rest";
@@ -103,12 +103,12 @@ ClassList["scholar"] = {
 				source : ["HB",0],
 				description : "\n   " + "I gain expertise with two skills out of Arcana, History, Investigation, Medecine, Nature, or Religion.",
 				skillstxt : "Expertise with two skill proficiencies of Arcana, History, Investigation, Medecine, Nature, or Religion",
-            },
+      },
 			"adventurous appetizers (prereq: culinarian)" : {
 				name : "Adventurous Appetizers",
 				source : ["HB", 0],
 				description : "You can spend 10 minutes preparing easy to eat appetizers. When eaten as an action, a creature regains 1d8 hitpoints plus a number of temporary hitpoints.",
-                additional : ["", "1d8+1 temporary hitpoints", "1d8+1 temporary hitpoints", "1d8+2 temporary hitpoints", "1d8+2 temporary hitpoints", "1d8+3 temporary hitpoints", "1d8+3 temporary hitpoints", "1d8+4 temporary hitpoints", "1d8+4 temporary hitpoints", "1d8+5 temporary hitpoints", "1d8+5 temporary hitpoints", "1d8+6 temporary hitpoints", "1d8+6 temporary hitpoints", "1d8+7 temporary hitpoints", "1d8+7 temporary hitpoints", "1d8+8 temporary hitpoints", "1d8+8 temporary hitpoints", "1d8+9 temporary hitpoints", "1d8+9 temporary hitpoints", "1d8+10 temporary hitpoints"],
+        additional : ["", "1d8+1 temporary hitpoints", "1d8+1 temporary hitpoints", "1d8+2 temporary hitpoints", "1d8+2 temporary hitpoints", "1d8+3 temporary hitpoints", "1d8+3 temporary hitpoints", "1d8+4 temporary hitpoints", "1d8+4 temporary hitpoints", "1d8+5 temporary hitpoints", "1d8+5 temporary hitpoints", "1d8+6 temporary hitpoints", "1d8+6 temporary hitpoints", "1d8+7 temporary hitpoints", "1d8+7 temporary hitpoints", "1d8+8 temporary hitpoints", "1d8+8 temporary hitpoints", "1d8+9 temporary hitpoints", "1d8+9 temporary hitpoints", "1d8+10 temporary hitpoints"],
 				usages : "1 + Intelligence Modifier per",
 				usagescalc : "event.value = Math.max(1, 1 + What('Int Mod'));",
 				recovery : "long rest"
@@ -173,12 +173,12 @@ AddSubClass("scholar", "culinarian", {
 	subname : "Culinary Field of Study",
 	source : ["HB", 0],
 	fullname : "Culinarian Scholar",
-	toolProfs : {[["Brewer's supplies", "Wis"],["Cook's utensils","Wis"]]},
 	features : {
 		"subclassfeature1" : {
 			name : "Combat Cook",
 			source : ["HB", 0],
 			minlevel : 1,
+			toolProfs : [["Brewer's supplies", 0],["Cook's utensils", 0]],
 			description : "\n " + "You can use cook's utensils as a simple weapon that deals 1d6 damage. Pots and pans deal bludgeoning damage and have the versatile (1d8) feature; forks deal piercing damage and have the light property; and knives deal slashing and have the thrown (20/60) property."
 		},
 		"subclassfeature3.1" : {
@@ -245,6 +245,73 @@ AddSubClass("scholar", "culinarian", {
 			source : ["HB", 0],
 			minlevel : 20,
 			description : "\n " + "When you cook using your Culinary Craft feature, you can use 2 ingredients instead of one. If you do, you can choose two different benefits as well. You gain bonus hitpoints equal to total CR of both creatures the ingredients were taken from.",
+		}
+	}
+});
+
+AddSubClass("scholar", "diplomat", {
+	regExpSearch : /^(?=.*diplomat)(?=.*scholar).*$/i,
+	subname : "Diplomatic Field of Study",
+	source : ["HB", 0],
+	fullname : "Diplomat Scholar",
+	abilitySave : 4,
+	features : {
+		"subclassfeature1" : {
+			name : "Diplomat's Expertise",
+			source : ["HB", 0],
+			minlevel : 1,
+			description : "\n " + "You gain proficiency with Persuasion and your choice of either Vehicles (land) or Vehicles (water). Your proficiency bonus is doubled for any ability check you make using these proficiencies.",
+      toolProfs : ["Vehicles", 1],
+			skills : ["Persuasion"],
+			expertise : ["Persuasion"]
+		},
+		"subclassfeature3.1" : {
+			name : "Call Detente",
+			source : ["HB", 0],
+			minlevel : 3,
+			action : ["reaction",""],
+			usages : 1,
+			recovery : "short rest",
+			description : "\n " + "When you make an initiative roll, you can use your reaction to force each creature who can hear you and who shares a language with you to perform a Charisma saving throw. On a failed saving throw, the creature becomes indifferent to creatures it was hostile towards, of your choosing. This indifference ends after 1 minute, or the creature is attacked or harmed, or it witnesses its friend being attacked or harmed. If after a minute the DM determines your actions do not warrant hosilities, the creature may remain indifferent or take a more appropriate attitude."
+		},
+		"subclassfeature3.2" : {
+			name : "Silver Tongue",
+			source : ["HB", 0],
+			minlevel : 3,
+			action : ["action",""],
+			usages : 1,
+			recovery : "short rest",
+			description : "\n " + "When you speak to a creature you share a language for one minute or more, you can choose to have them make a Wisdom saving throw. If the creature fails this saving throw, it is charmed by you for one hour or until you or one of your allies deals damage to it or casts a spell that requires a saving throw from it. After one hour, the creature remains friendly if you have done or said something worth maintaining friendship. You can use this ability as an action instead of using 1 minute of conversation, but only once per long rest.",
+		},
+		"subclassfeature9.1" : {
+			name : "World Wanderer",
+			source : ["HB", 0],
+			minlevel : 9,
+			description : "\n " + "Your movement speed increases by 10 feet. Additionally, if traveling for over an hour, difficult terrain doesn't slow your group and your group cannot become lost except by magical means.",
+			changeeval : {
+					SetProf('speed', true, {allModes : '+10'}, "Diplomat: World Wanderer");
+      }
+		},
+		"subclassfeature9.2" : {
+			name : "Well Traveled",
+			source : ["HB", 0],
+			minlevel : 9,
+			description : "\n " + "You may gain an Erudite Application of your choice, for which you need not meet the requirements and it does not count towards the limit of known Applications for you. You may repeat this process at 13th level.",
+			usage : 1,
+			recovery : "long rest"
+		},
+		"subclassfeature13" : {
+			name : "Master Ambassador",
+			source : ["HB", 0],
+			minlevel : 13,
+			description : "\n " + "No ability can cause you to have disadvantage on Insight checks or and Charisma based ability checks. Additionally, your mind cannot be read against your will and magic used to determine if you are telling the truth will always indicate that you are being truthful.",
+		},
+		"subclassfeature20" : {
+			name : "Diplomatic Immunity",
+			source : ["HB", 0],
+			minlevel : 20,
+			action : ["action",""],
+			description : "\n " + "You are immune to being charmed or frightened. As an action, you can end a charmed or frightened effect on a creature within 30ft of you that shares a language with you.",
 		}
 	}
 });
